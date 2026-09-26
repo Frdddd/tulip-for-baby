@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Little Surprise For You 🌷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  html{height:100%;overflow:hidden;scroll-padding-top:env(safe-area-inset-top,0px);}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    height:100%;
+    overflow:hidden;
+    background:linear-gradient(180deg,#1c1440 0%,#3c2168 20%,#7a3a80 46%,#cf6497 72%,#ffc2d1 100%);
+    font-family:'Quicksand','Segoe UI',sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .sky{position:fixed;inset:0;z-index:0;overflow:hidden;}
+  .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:.9;}}
+  .fx{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none;}
+  .particle{position:absolute;bottom:-10vh;opacity:0;animation-name:floatUp;animation-timing-function:ease-in;animation-fill-mode:forwards;will-change:transform,opacity;}
+  @keyframes floatUp{
+    0%{transform:translate(0,0) scale(.7);opacity:0;}
+    12%{opacity:.9;}
+    80%{opacity:.6;}
+    100%{transform:translate(var(--drift),-110vh) scale(1.05);opacity:0;}
+  }
+  .heart{color:#ff9ec4;text-shadow:0 0 6px rgba(255,150,200,.8);}
+  .spark{color:#fff6fa;text-shadow:0 0 5px rgba(255,255,255,.9);}
+  .content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:5vw;text-align:center;}
+  .tulip-wrap{position:relative;width:min(80vw,380px);display:flex;justify-content:center;}
+  .glow{position:absolute;top:10%;left:50%;width:92%;aspect-ratio:1/1;transform:translateX(-50%);background:radial-gradient(circle, rgba(255,170,210,.5) 0%, rgba(255,170,210,0) 70%);filter:blur(20px);animation:breathe 5s ease-in-out infinite;}
+  @keyframes breathe{0%,100%{opacity:.7;transform:translateX(-50%) scale(1);}50%{opacity:1;transform:translateX(-50%) scale(1.06);}}
+  svg.tulip{position:relative;width:100%;height:auto;display:block;filter:drop-shadow(0 0 14px rgba(255,140,195,.5)) drop-shadow(0 0 30px rgba(255,170,210,.32));}
+  #bouquet{transform-origin:150px 312px;animation:swayGroup 4.8s ease-in-out infinite;}
+  @keyframes swayGroup{0%,100%{transform:rotate(-2.4deg);}50%{transform:rotate(2.4deg);}}
+  #tulipCenter{transform-origin:150px 312px;animation:swayC 4.1s ease-in-out infinite;}
+  #tulipLeft{transform-origin:150px 312px;animation:swayL 3.5s ease-in-out infinite .15s;}
+  #tulipRight{transform-origin:150px 312px;animation:swayR 3.9s ease-in-out infinite .4s;}
+  @keyframes swayC{0%,100%{transform:rotate(-1.4deg);}50%{transform:rotate(1.4deg);}}
+  @keyframes swayL{0%,100%{transform:rotate(-1.8deg);}50%{transform:rotate(1.3deg);}}
+  @keyframes swayR{0%,100%{transform:rotate(-1.3deg);}50%{transform:rotate(1.8deg);}}
+  .message{
+    margin-top:4vw;
+    font-family:'Dancing Script',cursive;
+    font-weight:700;
+    font-size:clamp(1.6rem,6.5vw,2.6rem);
+    color:#fff7fb;
+    text-shadow:0 0 10px rgba(255,180,215,.85),0 0 26px rgba(255,150,200,.5),0 2px 6px rgba(50,15,45,.35);
+    opacity:0;
+    animation:riseIn 1.4s ease-out .6s forwards;
+  }
+  .signature{
+    margin-top:1.4vw;
+    font-family:'Dancing Script',cursive;
+    font-weight:600;
+    font-size:clamp(1rem,4vw,1.35rem);
+    color:#ffddec;
+    text-shadow:0 0 8px rgba(255,180,215,.6);
+    opacity:0;
+    animation:riseIn 1.4s ease-out 1.3s forwards;
+  }
+  @keyframes riseIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  @media (max-height:560px){.tulip-wrap{width:min(64vw,280px);}.message{margin-top:2.5vw;}}
+  @media (prefers-reduced-motion:reduce){
+    #bouquet,#tulipCenter,#tulipLeft,#tulipRight,.glow,.message,.signature,.star,.particle{animation:none !important;}
+    .message,.signature{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+  <div class="sky" id="sky" aria-hidden="true"></div>
+  <div class="fx" id="fx" aria-hidden="true"></div>
+  <div class="content">
+    <div class="tulip-wrap">
+      <div class="glow"></div>
+      <svg class="tulip" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A bouquet of softly glowing pink tulips">
+        <defs>
+          <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#4c8a3f"/>
+            <stop offset="100%" stop-color="#8fd66b"/>
+          </linearGradient>
+          <linearGradient id="leafGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3f7a35"/>
+            <stop offset="100%" stop-color="#94d977"/>
+          </linearGradient>
+          <linearGradient id="petalBack" x1="0" y1="-95" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#e888b3"/>
+            <stop offset="100%" stop-color="#9c2f68"/>
+          </linearGradient>
+          <linearGradient id="petalCenter" x1="0" y1="-95" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ffd9ec"/>
+            <stop offset="55%" stop-color="#ff6fa8"/>
+            <stop offset="100%" stop-color="#b81f5e"/>
+          </linearGradient>
+          <linearGradient id="petalLeft" x1="0" y1="-95" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ffe6f0"/>
+            <stop offset="55%" stop-color="#ffa0c6"/>
+            <stop offset="100%" stop-color="#d6497c"/>
+          </linearGradient>
+          <linearGradient id="petalRight" x1="0" y1="-95" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ffd0e4"/>
+            <stop offset="55%" stop-color="#ff8fb8"/>
+            <stop offset="100%" stop-color="#c2366b"/>
+          </linearGradient>
+          <path id="petal" d="M0,0 C-22,-10 -25,-50 0,-95 C25,-50 22,-10 0,0 Z"/>
+          <path id="leaf" d="M0,0 C12,-32 46,-58 74,-98 C57,-62 36,-28 14,-14 C8,-9 3,-4 0,0 Z"/>
+        </defs>
+
+        <g id="bouquet">
+          <g id="tulipLeft">
+            <path d="M150,312 C128,270 100,238 98,193 C97,183 98,175 100,169" fill="none" stroke="url(#stemGrad)" stroke-width="5" stroke-linecap="round"/>
+            <g transform="translate(112,246) scale(-1,1) rotate(10)" fill="url(#leafGrad)"><use href="#leaf" transform="scale(.85)"/></g>
+            <g transform="translate(100,169) rotate(-14)">
+              <use href="#petal" fill="url(#petalBack)" transform="rotate(-42) scale(.78)"/>
+              <use href="#petal" fill="url(#petalBack)" transform="rotate(42) scale(.78)"/>
+              <use href="#petal" fill="url(#petalLeft)" transform="rotate(-18) scale(.88)"/>
+              <use href="#petal" fill="url(#petalLeft)" transform="rotate(18) scale(.88)"/>
+              <use href="#petal" fill="url(#petalLeft)" transform="rotate(0) scale(.96)"/>
+            </g>
+          </g>
+
+          <g id="tulipRight">
+            <path d="M150,312 C172,270 200,238 202,193 C203,183 202,175 200,169" fill="none" stroke="url(#stemGrad)" stroke-width="5" stroke-linecap="round"/>
+            <g transform="translate(188,246) rotate(-10)" fill="url(#leafGrad)"><use href="#leaf" transform="scale(.85)"/></g>
+            <g transform="translate(200,169) rotate(14)">
+              <use href="#petal" fill="url(#petalBack)" transform="rotate(-42) scale(.78)"/>
+              <use href="#petal" fill="url(#petalBack)" transform="rotate(42) scale(.78)"/>
+              <use href="#petal" fill="url(#petalRight)" transform="rotate(-18) scale(.88)"/>
+              <use href="#petal" fill="url(#petalRight)" transform="rotate(18) scale(.88)"/>
+              <use href="#petal" fill="url(#petalRight)" transform="rotate(0) scale(.96)"/>
+            </g>
+          </g>
+
+          <g id="tulipCenter">
+            <path d="M150,312 C146,260 154,215 148,175 C145,160 149,150 150,145" fill="none" stroke="url(#stemGrad)" stroke-width="6" stroke-linecap="round"/>
+            <g transform="translate(139,238) scale(-1,1)" fill="url(#leafGrad)"><use href="#leaf"/></g>
+            <g transform="translate(161,213)" fill="url(#leafGrad)"><use href="#leaf"/></g>
+            <g transform="translate(150,145)">
+              <use href="#petal" fill="url(#petalBack)" transform="rotate(-42) scale(.85)"/>
+              <use href="#petal" fill="url(#petalBack)" transform="rotate(42) scale(.85)"/>
+              <use href="#petal" fill="url(#petalCenter)" transform="rotate(-18) scale(.96)"/>
+              <use href="#petal" fill="url(#petalCenter)" transform="rotate(18) scale(.96)"/>
+              <use href="#petal" fill="url(#petalCenter)" transform="rotate(0) scale(1.05)"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <p class="message">I love you babyy</p>
+    <p class="signature">from sayang</p>
+  </div>
+
+<script>
+(function(){
+  var sky = document.getElementById('sky');
+  for(var i=0;i<32;i++){
+    var s = document.createElement('div');
+    s.className='star';
+    var size=(Math.random()*2+1).toFixed(1);
+    s.style.width=size+'px';
+    s.style.height=size+'px';
+    s.style.left=(Math.random()*100).toFixed(1)+'vw';
+    s.style.top=(Math.random()*55).toFixed(1)+'vh';
+    s.style.animationDuration=(2+Math.random()*3).toFixed(1)+'s';
+    s.style.animationDelay=(Math.random()*3).toFixed(1)+'s';
+    sky.appendChild(s);
+  }
+
+  var fx = document.getElementById('fx');
+  function spawn(){
+    var el=document.createElement('div');
+    var heart=Math.random()>0.4;
+    el.className='particle '+(heart?'heart':'spark');
+    el.textContent=heart?'\u2764':'\u2726';
+    el.style.left=(Math.random()*94+3).toFixed(1)+'vw';
+    var dur=7+Math.random()*5;
+    el.style.setProperty('--drift',(Math.random()*50-25).toFixed(0)+'px');
+    el.style.animationDuration=dur.toFixed(1)+'s';
+    el.style.fontSize=(heart?(0.8+Math.random()*0.9):(0.5+Math.random()*0.5)).toFixed(2)+'rem';
+    fx.appendChild(el);
+    setTimeout(function(){el.remove();},dur*1000+200);
+  }
+  for(var j=0;j<5;j++){ setTimeout(spawn, j*450); }
+  setInterval(spawn, 950);
+})();
+</script>
+</body>
+</html>
